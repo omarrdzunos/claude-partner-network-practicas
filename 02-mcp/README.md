@@ -41,3 +41,9 @@ sequenceDiagram
     A-->>S: Final answer
     S-->>U: Response
 ```
+
+## 4. Project setup
+- Project: `cli_project`, based on the course reference solution (CLI chat app with an MCP client and an MCP server).
+- Dependencies installed with `uv sync`.
+- The chat (`main.py`) requires an Anthropic API key in `.env` (pending). The MCP server is tested independently with the MCP Inspector.
+- Each following lesson adds my own tool, resource or prompt on top of the reference code.
