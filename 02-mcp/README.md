@@ -46,7 +46,7 @@ sequenceDiagram
 - Project: `cli_project`, based on the course reference solution (CLI chat app with an MCP client and an MCP server).
 - Dependencies installed with `uv sync`.
 - The chat (`main.py`) requires an Anthropic API key in `.env` (pending). The MCP server is tested independently with the MCP Inspector.
-- Each following lesson adds my own tool, resource or prompt on top of the reference code.
+- Each lesson documents the relevant code and how it was tested.
 
 ## 5. Defining tools with MCP
 - Code: `cli_project/mcp_server.py`.
@@ -61,5 +61,9 @@ sequenceDiagram
 ## 6. The server inspector
 - Run: `uv run mcp dev mcp_server.py` (from `cli_project`), then open the printed localhost URL and click Connect.
 - Tools tab -> List Tools shows `read_doc_contents` and `edit_document`.
-- Test: read `deposition.md`, edit "Angela Smith" -> "Omar Rodriguez", read again to confirm the change.
+- Test: read `deposition.md`, edit "Angela Smith" -> "Omar Rdz", read again to confirm the change.
 - The inspector lets you test an MCP server without Claude or an API key.
+- Error case: reading `nope.md` returns "Doc with id nope.md not found" (the tool's `ValueError`).
+- Server state persists between tool calls, so edits are visible in later reads.
+
+![MCP Inspector - read after edit](images/inspector-tools.png)
