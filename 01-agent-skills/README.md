@@ -20,3 +20,16 @@
 - Progressive disclosure: keep SKILL.md under 500 lines; put details in references/, scripts/, assets/ and load them only when needed.
 - Scripts are executed, not read: only their output consumes context.
 - Practice: `codebase-onboarding` skill with a reference file and an environment-check script.
+
+## 4. Skills vs. other Claude Code features
+
+| Feature | Loads / runs | Best for |
+|---|---|---|
+| CLAUDE.md | Every conversation | Always-on project standards and constraints |
+| Skills | On demand, request-driven | Task-specific expertise and procedures |
+| Subagents | Separate, isolated context | Delegated work, different tool access |
+| Hooks | On events (file save, tool call) | Linters, validation, automated side effects |
+| MCP servers | As external tools | Integrations with external services |
+
+- Combine features instead of forcing everything into skills.
+- Practice: added `CLAUDE.md` with always-on standards; task-specific procedures stay in `.claude/skills`.
