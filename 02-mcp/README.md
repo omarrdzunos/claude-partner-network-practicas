@@ -47,3 +47,13 @@ sequenceDiagram
 - Dependencies installed with `uv sync`.
 - The chat (`main.py`) requires an Anthropic API key in `.env` (pending). The MCP server is tested independently with the MCP Inspector.
 - Each following lesson adds my own tool, resource or prompt on top of the reference code.
+
+## 5. Defining tools with MCP
+- Code: `cli_project/mcp_server.py`.
+- `FastMCP("DocumentMCP")` creates the server in one line using the official Python SDK.
+- Documents are stored in memory in a `docs` dictionary (id -> content).
+- Tools are defined with the `@mcp.tool(name, description)` decorator; the SDK generates the JSON schema from type hints and Pydantic `Field` descriptions.
+- `read_doc_contents(doc_id)`: returns a document's content, raises `ValueError` if the id does not exist.
+- `edit_document(doc_id, old_str, new_str)`: find-and-replace inside a document.
+- Benefits: no manual JSON schemas, automatic validation, clear parameter descriptions, errors as normal Python exceptions.
+- Tested in the next lesson with the MCP Inspector.
