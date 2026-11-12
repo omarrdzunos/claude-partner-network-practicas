@@ -33,3 +33,11 @@
 
 - Combine features instead of forcing everything into skills.
 - Practice: added `CLAUDE.md` with always-on standards; task-specific procedures stay in `.claude/skills`.
+
+## 5. Sharing skills
+- Repository: skills in `.claude/skills` are shared through Git; anyone who clones the repo gets them.
+- Plugins: distribute skills across repositories through marketplaces.
+- Enterprise managed settings: organization-wide deployment with the highest priority (mandatory standards, compliance).
+- Subagents do not see skills already invoked in the main conversation; they can still invoke skills if they have the Skill tool.
+- Built-in agents (Explore, Plan) do not preload skills; custom subagents can preload them with the `skills` field (loaded in full at startup).
+- Practice: custom subagent `change-summarizer` in `.claude/agents` that preloads `commit-message` and `pr-description`. This repo itself is the repository sharing method.
