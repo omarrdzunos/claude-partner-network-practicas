@@ -57,3 +57,9 @@ sequenceDiagram
 - `edit_document(doc_id, old_str, new_str)`: find-and-replace inside a document.
 - Benefits: no manual JSON schemas, automatic validation, clear parameter descriptions, errors as normal Python exceptions.
 - Tested in the next lesson with the MCP Inspector.
+
+## 6. The server inspector
+- Run: `uv run mcp dev mcp_server.py` (from `cli_project`), then open the printed localhost URL and click Connect.
+- Tools tab -> List Tools shows `read_doc_contents` and `edit_document`.
+- Test: read `deposition.md`, edit "Angela Smith" -> "Omar Rodriguez", read again to confirm the change.
+- The inspector lets you test an MCP server without Claude or an API key.
