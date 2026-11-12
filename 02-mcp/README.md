@@ -67,3 +67,11 @@ sequenceDiagram
 - Server state persists between tool calls, so edits are visible in later reads.
 
 ![MCP Inspector - read after edit](images/inspector-tools.png)
+
+## 7. Implementing a client
+- Code: `cli_project/mcp_client.py`.
+- Two parts: `ClientSession` (SDK connection to the server) wrapped in a custom `MCPClient` class that handles connection cleanup.
+- `list_tools()`: calls `session.list_tools()` and returns the tools (sent to Claude).
+- `call_tool(tool_name, tool_input)`: calls `session.call_tool()` with the arguments Claude provides.
+- Test: `uv run mcp_client.py` connects to the server and prints both tools with their generated input schemas.
+- Full flow with Claude (`uv run main.py`, "What is the contents of the report.pdf document?") pending: requires API key.
