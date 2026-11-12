@@ -15,3 +15,29 @@
 - Problem it solves: wrapping a large API (e.g. GitHub) means writing and maintaining many tool schemas and functions; an MCP server already provides them.
 - Anyone can author an MCP server; service providers often publish official ones.
 - MCP vs. tool use: they are complementary. MCP servers provide ready-made tool definitions and execution; tool use is how Claude calls those tools.
+
+## 3. MCP clients
+- The MCP client is the bridge between your app and MCP servers; it handles message exchange and protocol details.
+- Transport agnostic: stdio (same machine, most common), HTTP, WebSockets and others.
+- Main message types: `ListToolsRequest`/`ListToolsResult` (discover tools) and `CallToolRequest`/`CallToolResult` (run a tool).
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant S as Your server
+    participant C as MCP client
+    participant M as MCP server
+    participant A as Claude
+    U->>S: "What repositories do I have?"
+    S->>C: Get available tools
+    C->>M: ListToolsRequest
+    M-->>C: ListToolsResult
+    S->>A: Query + tools
+    A-->>S: Tool use request
+    S->>C: Run tool
+    C->>M: CallToolRequest
+    M-->>C: CallToolResult (external API data)
+    S->>A: Tool result
+    A-->>S: Final answer
+    S-->>U: Response
+```
