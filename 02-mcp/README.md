@@ -95,3 +95,12 @@ sequenceDiagram
 - In the CLI, typing `@` lists documents (autocomplete) and injects the selected document's content into the prompt, so Claude does not need a tool call.
 - Test: extended the harness in `main()`; `docs://documents` returns a Python `list` (parsed JSON) and `docs://documents/plan.md` returns a `str`.
 - Testing `@` mentions in the chat is pending: requires API key.
+
+## 10. Defining prompts
+- Prompts are pre-built, tested instructions that the server author provides so users get better, consistent results.
+- Defined with `@mcp.prompt(name, description)`; the function returns a list of messages (`base.UserMessage`, can also include assistant messages).
+- Example: `format(doc_id)` asks Claude to rewrite a document in Markdown using the `edit_document` tool. In the CLI it is used as `/format doc_id`.
+- Benefits: consistency, encoded domain expertise, reusable across clients, maintained in one place.
+- Test: MCP Inspector, Prompts tab, `format` with `doc_id = spec.txt` shows the user message with the id interpolated.
+
+![MCP Inspector - prompts](images/inspector-prompts.png)
