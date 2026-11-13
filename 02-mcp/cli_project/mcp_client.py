@@ -112,7 +112,10 @@ async def main():
         command="uv",
         args=["run", "mcp_server.py"],
     ) as _client:
-        pass
+        tools = await _client.list_tools()
+        for tool in tools:
+            print(f"{tool.name}: {tool.description}")
+            print(json.dumps(tool.inputSchema, indent=2))
 
 
 if __name__ == "__main__":

@@ -75,3 +75,12 @@ sequenceDiagram
 - `call_tool(tool_name, tool_input)`: calls `session.call_tool()` with the arguments Claude provides.
 - Test: `uv run mcp_client.py` connects to the server and prints both tools with their generated input schemas.
 - Full flow with Claude (`uv run main.py`, "What is the contents of the report.pdf document?") pending: requires API key.
+
+## 7. Implementing a client
+- Code: `cli_project/mcp_client.py`.
+- Two parts: `ClientSession` (SDK connection to the server) wrapped in a custom `MCPClient` class that handles connection cleanup.
+- `list_tools()`: calls `session.list_tools()` and returns the tools (sent to Claude).
+- `call_tool(tool_name, tool_input)`: calls `session.call_tool()` with the arguments Claude provides.
+- Updated the test harness in `main()` to print each tool's name, description and input schema (it originally only connected).
+- Test: `uv run mcp_client.py` starts the server over stdio and prints both tools with their generated JSON schemas.
+- Full flow with Claude (`uv run main.py`, "What is the contents of the report.pdf document?") pending: requires API key.
