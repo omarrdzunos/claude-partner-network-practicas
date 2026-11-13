@@ -73,14 +73,17 @@ sequenceDiagram
 - Two parts: `ClientSession` (SDK connection to the server) wrapped in a custom `MCPClient` class that handles connection cleanup.
 - `list_tools()`: calls `session.list_tools()` and returns the tools (sent to Claude).
 - `call_tool(tool_name, tool_input)`: calls `session.call_tool()` with the arguments Claude provides.
-- Test: `uv run mcp_client.py` connects to the server and prints both tools with their generated input schemas.
-- Full flow with Claude (`uv run main.py`, "What is the contents of the report.pdf document?") pending: requires API key.
-
-## 7. Implementing a client
-- Code: `cli_project/mcp_client.py`.
-- Two parts: `ClientSession` (SDK connection to the server) wrapped in a custom `MCPClient` class that handles connection cleanup.
-- `list_tools()`: calls `session.list_tools()` and returns the tools (sent to Claude).
-- `call_tool(tool_name, tool_input)`: calls `session.call_tool()` with the arguments Claude provides.
 - Updated the test harness in `main()` to print each tool's name, description and input schema (it originally only connected).
 - Test: `uv run mcp_client.py` starts the server over stdio and prints both tools with their generated JSON schemas.
 - Full flow with Claude (`uv run main.py`, "What is the contents of the report.pdf document?") pending: requires API key.
+
+## 8. Defining resources
+- Resources expose read-only data, similar to GET handlers in an HTTP server.
+- Flow: client sends `ReadResourceRequest` with a URI, server returns `ReadResourceResult`.
+- Direct resource (static URI): `docs://documents` returns the list of document ids (`application/json`).
+- Templated resource (URI with parameters): `docs://documents/{doc_id}` returns a document's content (`text/plain`); the SDK parses `doc_id` and passes it as a keyword argument.
+- `mime_type` hints the data type to the client; the SDK serializes return values automatically.
+- Use case: `@document` mentions inject the document content into the prompt without Claude calling a tool.
+- Test: MCP Inspector, Resources tab (`docs://documents`) and Resource Templates (`docs://documents/report.pdf`).
+
+![MCP Inspector - resources](images/inspector-resources.png)
