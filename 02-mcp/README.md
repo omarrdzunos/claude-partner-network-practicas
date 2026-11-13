@@ -112,3 +112,17 @@ sequenceDiagram
 - Claude then uses the server's tools (e.g. `edit_document`) to complete the task.
 - Test: extended the harness in `main()` to list prompts and print the messages returned for `format` with `plan.md`.
 - Testing `/format` in the chat is pending: requires API key.
+
+## 12. MCP review
+
+| Primitive | Controlled by | Use it to | In this project |
+|---|---|---|---|
+| Tools | Model (Claude) | Give Claude new capabilities it uses autonomously | `read_doc_contents`, `edit_document` |
+| Resources | App (your code) | Get data into the app for UI or context | `docs://documents` (autocomplete), `docs://documents/{doc_id}` (`@` mentions) |
+| Prompts | User | Predefined workflows triggered on demand | `/format doc_id` |
+
+- Tools serve the model, resources serve the app, prompts serve the user.
+
+## Status
+- Completed: server (tools, resources, prompts) and client functions, tested with the MCP Inspector and the client test harness.
+- Pending (requires API key): running the full chat with Claude (`uv run main.py`).
