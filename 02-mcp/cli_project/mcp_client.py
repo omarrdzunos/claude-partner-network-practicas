@@ -122,6 +122,14 @@ async def main():
         content = await _client.read_resource("docs://documents/plan.md")
         print(type(content), content)
 
+        prompts = await _client.list_prompts()
+        for prompt in prompts:
+            print(f"Prompt: {prompt.name} - {prompt.description}")
+
+        messages = await _client.get_prompt("format", {"doc_id": "plan.md"})
+        for message in messages:
+            print(f"[{message.role}] {message.content.text}")
+
 
 if __name__ == "__main__":
     if sys.platform == "win32":

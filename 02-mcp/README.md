@@ -104,3 +104,11 @@ sequenceDiagram
 - Test: MCP Inspector, Prompts tab, `format` with `doc_id = spec.txt` shows the user message with the id interpolated.
 
 ![MCP Inspector - prompts](images/inspector-prompts.png)
+
+## 11. Prompts in the client
+- Code: `list_prompts()` and `get_prompt(prompt_name, args)` in `cli_project/mcp_client.py`.
+- `list_prompts()` returns the prompts the server defines; in the CLI they appear as `/` commands.
+- `get_prompt("format", {"doc_id": "plan.md"})`: the args dict becomes keyword arguments of the server's prompt function and the interpolated messages are returned, ready to send to Claude.
+- Claude then uses the server's tools (e.g. `edit_document`) to complete the task.
+- Test: extended the harness in `main()` to list prompts and print the messages returned for `format` with `plan.md`.
+- Testing `/format` in the chat is pending: requires API key.
