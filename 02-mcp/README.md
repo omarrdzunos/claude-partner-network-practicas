@@ -87,3 +87,11 @@ sequenceDiagram
 - Test: MCP Inspector, Resources tab (`docs://documents`) and Resource Templates (`docs://documents/report.pdf`).
 
 ![MCP Inspector - resources](images/inspector-resources.png)
+
+## 9. Accessing resources
+- Code: `read_resource(uri)` in `cli_project/mcp_client.py`.
+- Sends a `ReadResourceRequest` with `AnyUrl(uri)` and takes the first item of `result.contents`.
+- If the MIME type is `application/json`, the text is parsed with `json.loads`; otherwise the raw text is returned.
+- In the CLI, typing `@` lists documents (autocomplete) and injects the selected document's content into the prompt, so Claude does not need a tool call.
+- Test: extended the harness in `main()`; `docs://documents` returns a Python `list` (parsed JSON) and `docs://documents/plan.md` returns a `str`.
+- Testing `@` mentions in the chat is pending: requires API key.

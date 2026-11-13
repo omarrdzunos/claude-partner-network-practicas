@@ -116,6 +116,11 @@ async def main():
         for tool in tools:
             print(f"{tool.name}: {tool.description}")
             print(json.dumps(tool.inputSchema, indent=2))
+        doc_ids = await _client.read_resource("docs://documents")
+        print(type(doc_ids), doc_ids)
+
+        content = await _client.read_resource("docs://documents/plan.md")
+        print(type(content), content)
 
 
 if __name__ == "__main__":
